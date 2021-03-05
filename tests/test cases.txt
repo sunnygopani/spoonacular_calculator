@@ -1,0 +1,11 @@
+1.  Enter symbols
+2.  Enter large list of ingredients
+3.  Enter spaces
+4.  Enter numbers
+5.  Menu option test
+6.  Ingredient list test
+7.  Estimated cost test
+8.  Wrong API key
+9.  Missing API key
+10. API Limit reached
+11. API level testing

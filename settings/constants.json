@@ -1,0 +1,57 @@
+{
+    "BASE_URL" :  "https://api.spoonacular.com/",
+    "APIS": {
+        "FIND_BY_INGREDIENTS": {
+            "PATH": "recipes/findByIngredients",
+            "METHOD": "GET",
+            "PARAMS": [
+                {
+                    "NAME": "number",
+                    "VALUE": "100"
+                },
+                {
+                    "NAME": "limitLicense",
+                    "VALUE": "True"
+                },
+                {
+                    "NAME": "ranking",
+                    "VALUE": "1"
+                },
+                {
+                    "NAME": "ignorePantry",
+                    "VALUE": "True"
+                }
+            ],
+            "PROJECTION": [
+                "id",
+                "title",
+                {
+                    "missedIngredients": [
+                        "id",
+                        "name",
+                        "amount",
+                        "aisle"
+                    ]
+                }
+            ]
+        },
+        "FIND_BY_INGREDIENT": {
+            "PATH": "recipes/informationBulk",
+            "METHOD": "GET",
+            "PARAMS": [
+            ],
+            "PROJECTION": [
+                "instructions"
+            ]
+        },
+        "GET_INGREDIENT": {
+            "PATH": "food/ingredients",
+            "METHOD": "GET",
+            "PARAMS": [
+            ],
+            "PROJECTION": [
+                "instructions"
+            ]
+        }
+    }
+}

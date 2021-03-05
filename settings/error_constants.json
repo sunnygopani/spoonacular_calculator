@@ -1,0 +1,18 @@
+{
+    "API_ERRORS":{
+        "NO_RESULTS_FOUND":{
+            "CODE":2001,
+            "MESSAGE":"no results found for the given input"
+        },
+        "UNKNOWN_ERROR":{
+            "CODE":2000,
+            "MESSAGE":"unknown error"
+        }
+    },
+    "GENERAL_EXCEPTION": {
+        "UNKNOWN_ERROR": {
+            "CODE":100,
+            "MESSAGE":"unknown general error"
+        }
+    }
+}
