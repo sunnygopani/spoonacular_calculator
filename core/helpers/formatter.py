@@ -44,6 +44,11 @@ def display_menu() -> None:
     display(message)
 
 
+def display_list_empty() -> None:
+    message = "No more recipes left"
+    display(message)
+
+
 def display_recipe(data):
     message = "\n\nRecipe:" \
               "{}".format(data['name'])
