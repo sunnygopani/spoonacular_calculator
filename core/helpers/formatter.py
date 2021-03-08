@@ -62,11 +62,10 @@ def display_missing_ingredients(data):
     display(message)
 
 
-def display_shopping_cart(data, sum):
+def display_shopping_cart(data, total_cost):
     message = "\nShopping List:" \
                "\n{col1: >40} {col2: >40} {col3: >40} {col4: >40}".format(col1="Ingredient", col2="Amount",
                                                                           col3="Cost (in cents)", col4="Aisle")
-    total_cost = sum
     for key, val in data.items():
         message += "\n{: >40} {: >40} {: >40} {: >40}".format(val['item'], val['amount'], val['cost']['value'],
                                                               val['aisle'])

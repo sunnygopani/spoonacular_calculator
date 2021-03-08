@@ -4,6 +4,4 @@ class Exceptions:
         self.message = message
 
     def get_error_object(self):
-        error_obj = {'status': False, 'error_code': self.code,
-                     'error_message': self.message.lower(), "data": ""}
-        return error_obj
+        return {'status': False, 'error_code': self.code, 'error_message': self.message.lower(), "data": ""}

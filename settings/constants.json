@@ -1,27 +1,16 @@
 {
     "BASE_URL" :  "https://api.spoonacular.com/",
+    "LOGGING_LEVEL": "ERROR",
     "APIS": {
         "FIND_BY_INGREDIENTS": {
             "PATH": "recipes/findByIngredients",
             "METHOD": "GET",
-            "PARAMS": [
-                {
-                    "NAME": "number",
-                    "VALUE": "100"
-                },
-                {
-                    "NAME": "limitLicense",
-                    "VALUE": "True"
-                },
-                {
-                    "NAME": "ranking",
-                    "VALUE": "1"
-                },
-                {
-                    "NAME": "ignorePantry",
-                    "VALUE": "True"
-                }
-            ],
+            "PARAMS": {
+                "number": 100,
+                "limitLicense": "True",
+                "ranking": 1,
+                "ignorePantry": "True"
+            },
             "PROJECTION": [
                 "id",
                 "title",
@@ -38,8 +27,7 @@
         "FIND_BY_INGREDIENT": {
             "PATH": "recipes/informationBulk",
             "METHOD": "GET",
-            "PARAMS": [
-            ],
+            "PARAMS": {},
             "PROJECTION": [
                 "instructions"
             ]
@@ -47,8 +35,7 @@
         "GET_INGREDIENT": {
             "PATH": "food/ingredients",
             "METHOD": "GET",
-            "PARAMS": [
-            ],
+            "PARAMS": {},
             "PROJECTION": [
                 "instructions"
             ]
