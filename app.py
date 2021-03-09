@@ -13,9 +13,6 @@ log_handler = log_object.get_logger()
 def main(args=''):
     # Main method to present the different options for the end user to get the recipes for the ingredients.
     try:
-        # Definition of the shopping cart dictionary to record the details of the missing
-        # ingredients belonging to the liked recipe.
-        shopping_cart = {}
         # Invoice object to access the methods of the Invoice class so as to
         # compute the total estimated cost of all the missing ingredients.
         invoice_obj = Invoice()
