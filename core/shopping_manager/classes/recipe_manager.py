@@ -1,6 +1,7 @@
 from core.error_module.ExceptionsManager import ExceptionsManager
 from core.helpers.spoonacular_logger import Logger
 from core.shopping_manager.libraries.SpoonacularApi import SpoonacularApi
+from cerberus import Validator
 
 
 class RecipeManager:
@@ -10,13 +11,16 @@ class RecipeManager:
 
     def get_all_recipes(self, ingredients):
         try:
+            if not isinstance(ingredients, list):
+                raise Exception("Ingredients need to be a list of values")
             self.log_handler.debug('Ingredients: {}'.format(ingredients))
             params = {'ingredients': ingredients}
             spoonacular_obj = SpoonacularApi()
             response = spoonacular_obj.search_recipies_by_ingredients(params)
             response['data'] = list(map(self.project_recipe_data, response['data']))
         except Exception as ex:
-            error_params = {'error_type': 'UNKNOWN', 'message': ex}
+            print(str(ex))
+            error_params = {'error_type': 'UNKNOWN', 'message': str(ex)}
             ex_manager_obj = ExceptionsManager(error_params)
             error_object = ex_manager_obj.generate_exception()
             self.log_handler.error('error_object: {}'.format(error_object))
@@ -25,6 +29,8 @@ class RecipeManager:
 
     def get_recipe(self, ids):
         try:
+            if not ids or not isinstance(ids, int):
+                raise Exception("ids need to be in string format")
             self.log_handler.debug('ids: {}'.format(ids))
             params = {'ids': ids}
             spoonacular_obj = SpoonacularApi()
@@ -46,6 +52,21 @@ class RecipeManager:
 
     def get_ingredient(self, params):
         try:
+            get_get_ingredient = {
+                'id': {
+                    'type': 'integer'
+                },
+                'amount': {
+                    'type': 'float',
+                    'required': False
+                },
+                'unit': {
+                    'type': 'string',
+                    'required': False
+                }
+            }
+            v = Validator(get_get_ingredient)
+            v.validate(params)
             self.log_handler.debug('params: {}'.format(params))
             spoonacular_obj = SpoonacularApi()
             response = spoonacular_obj.get_ingredient_details(params)
@@ -58,6 +79,7 @@ class RecipeManager:
                     'data': self.project_ingredient_details(response['data'])
                 }
         except Exception as ex:
+            print(str(ex))
             error_params = {'error_type': 'UNKNOWN', 'message': ex}
             ex_manager_obj = ExceptionsManager(error_params)
             error_object = ex_manager_obj.generate_exception()
@@ -108,5 +130,6 @@ class RecipeManager:
             'id': data.get('id', 'NA'),
             'name': data.get('name', 'NA'),
             'amount': data.get('amount', 0),
-            'aisle': data.get('aisle', 'NA')
+            'aisle': data.get('aisle', 'NA'),
+            'unit': data.get('unit', 'NA')
         }

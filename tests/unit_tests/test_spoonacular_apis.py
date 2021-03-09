@@ -1,49 +1,43 @@
+from core.shopping_manager.libraries.SpoonacularApi import SpoonacularApi
+
+
 def test_search_recipies_by_ingredients_list():
-    pass
+    api_obj = SpoonacularApi()
+    recipes = api_obj.search_recipies_by_ingredients({'ingredients': ['apple', 'banana']})
+    assert recipes['status'], "Status needs to be true"
 
 
 def test_search_recipies_by_ingredients_single_value():
-    pass
-
-
-def test_search_recipies_by_ingredients_non_list():
-    pass
+    api_obj = SpoonacularApi()
+    recipes = api_obj.search_recipies_by_ingredients({'ingredients': ['apple']})
+    assert recipes['status'], "Status needs to be true"
 
 
 def test_search_recipies_by_ingredients_empty():
-    pass
+    api_obj = SpoonacularApi()
+    recipes = api_obj.search_recipies_by_ingredients({'ingredients': []})
+    assert recipes['error_code'] == 2001, "Raise correct API error"
 
 
 def test_get_recipe_details_dict():
-    pass
-
-
-def test_get_recipe_details_non_dict():
-    pass
-
-
-def test_get_recipe_details_empty():
-    pass
-
-
-def test_get_ingredient_details_dict():
-    pass
-
-
-def test_get_ingredient_details_non_dict():
-    pass
+    api_obj = SpoonacularApi()
+    recipe = api_obj.get_recipe_details({'ids': 621189})
+    assert recipe['status'], "Status needs to be true"
 
 
 def test_get_ingredient_details_empty():
-    pass
+    api_obj = SpoonacularApi()
+    recipe = api_obj.get_ingredient_details({})
+    assert not recipe['status'], "Status needs to be false"
+
+
+def test_get_ingredient_details():
+    api_obj = SpoonacularApi()
+    recipe = api_obj.get_ingredient_details({'id': 10218, 'amount': 1.0})
+    assert recipe['status'], "Status needs to be true"
 
 
 def test_http_request_wrong_api_key():
-    pass
-
-
-def test_http_request_incorrect_param_syntax():
-    pass
-
-
-
+    api_obj = SpoonacularApi({'api_key': '1231241j23'})
+    recipe = api_obj.get_ingredient_details({'id': 10218, 'amount': 1.0})
+    assert not recipe['status'], "Status needs to be false"

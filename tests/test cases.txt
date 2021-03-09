@@ -7,5 +7,4 @@
 7.  Estimated cost test
 8.  Wrong API key
 9.  Missing API key
-10. API Limit reached
-11. API level testing
+10. API level testing

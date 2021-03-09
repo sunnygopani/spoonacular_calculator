@@ -9,10 +9,12 @@ class Invoice:
         self.log_object = Logger()
         self.log_handler = self.log_object.get_logger()
 
-    def add_items(self, ingredient_obj):
+    def add_items(self, ingredient_obj={}):
         try:
             self.log_handler.debug('Ingredient Object: {}'.format(ingredient_obj))
             for k, v in ingredient_obj.items():
+                if not v['cost']['value']:
+                    v['cost']['value'] = 0.0
                 if k not in self.final_shopping_list.keys():
                     self.final_shopping_list[k] = v
                     if v['cost']['unit'] == 'US Cents':

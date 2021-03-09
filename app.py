@@ -6,13 +6,16 @@ log_object = Logger()
 log_handler = log_object.get_logger()
 
 
-def main():
+def main(*args):
     try:
         shopping_cart = {}
         invoice_obj = Invoice()
         display_welcome_message()
         while True:
-            ingredients_list = user_ingredients_input()
+            if args:
+                ingredients_list = args
+            else:
+                ingredients_list = user_ingredients_input()
             if ingredients_list[0] == 'e':
                 break
             display_processing_message(ingredients_list)
@@ -37,15 +40,15 @@ def main():
                             if 'missedIngredients' in next_recipe.keys():
                                 for missing_ingredient in next_recipe['missedIngredients']:
                                     ingredient_details = recipe_manager_object.get_ingredient(
-                                        {'id': missing_ingredient.get('id', ''),
-                                         'amount': missing_ingredient.get('amount', ''),
+                                        {'id': missing_ingredient.get('id', 0),
+                                         'amount': missing_ingredient.get('amount', 0),
                                          'unit': missing_ingredient.get('unit', '')})
                                     if not ingredient_details['status']:
                                         display_error_message(ingredient_details)
                                         break
                                     shopping_cart[str(missing_ingredient['id'])] = {
                                         'item': missing_ingredient.get('name', ''),
-                                        'amount': missing_ingredient.get('amount', ''),
+                                        'amount': missing_ingredient.get('amount', 0),
                                         'aisle': missing_ingredient.get('aisle', ''),
                                         'cost': {
                                             'value': ingredient_details['data'].get('cost', 0).get('value', 0),
