@@ -18,18 +18,20 @@ class Invoice:
         # Function to add the items to the shopping list and calculate the total estimated cost of the liked recipes.
         # ingredient_obj is a dictionary that includes the cost and unit of each item.
         # example: {
-        #           '19719': {
-        #                       'item':'apricot jam',
-        #                       'amount': 1.0,
-        #                       'aisle':'Nut butters, Jams, and Honey',
-        #                       'cost':{
-        #                               'value':1.25,
-        #                               'unit': 'US Cents'
-        #                               }
+        #               'id': 19719,
+        #               'item':'apricot jam',
+        #               'amount': 1.0,
+        #               'aisle':'Nut butters, Jams, and Honey',
+        #               'cost':{
+        #                       'value':1.25,
+        #                       'unit': 'US Cents'
         #                       }
+        #                 }
         #          }
         try:
             self.log_handler.debug('Ingredient Object: {}'.format(ingredient_obj))
+            if 'id' not in ingredient_obj.keys():
+                raise Exception('No ingredient passed')
             ingredient_id = ingredient_obj['id']
             del ingredient_obj['id']
             ingredient = {ingredient_id: ingredient_obj}
@@ -52,4 +54,4 @@ class Invoice:
                         self.total_cost += v['cost']['value']
             self.total_cost = round(self.total_cost, 2)
         except Exception as ex:
-            raise str(ex)
+            raise ex
