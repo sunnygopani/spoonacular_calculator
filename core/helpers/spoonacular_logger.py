@@ -28,9 +28,8 @@ class Logger:
 
     def get_logger(self):
         logger = logging.getLogger()
-        logger.setLevel(logging.DEBUG)  # better to have too much log than not enough
+        logger.setLevel(logging.DEBUG)
         logger.addHandler(self.get_file_handler)
-        # with this pattern, it's rarely necessary to propagate the error up to parent
         logger.propagate = False
         logger.setLevel(self.LOG_LEVEL)
         return logger

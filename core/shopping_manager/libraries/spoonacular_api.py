@@ -4,8 +4,11 @@ import requests
 from dotenv import load_dotenv
 import json
 from core.helpers.spoonacular_logger import Logger
-from core.error_module.ExceptionsManager import ExceptionsManager
+from core.error_module.exceptions_manager import ExceptionsManager
 
+# Import all the required modules
+# Load the constants from the settings/constants.json
+# file that includes the API base url and parameters for the different APIs
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 with open(os.path.join(BASE_DIR, "settings/constants.json")) as f:
     data = json.load(f)
@@ -15,13 +18,16 @@ load_dotenv()
 
 class SpoonacularApi:
     def __init__(self, api_auth_params={}):
+        # Initialize logging handler, api base url and api key to be used in the subsequent request.
         self.log_object = Logger()
         self.log_handler = self.log_object.get_logger()
         self.log_handler.debug('Params: {}'.format(api_auth_params))
+        # Extract the Api Key from the .env file
         self.api_key = api_auth_params.get('api_key', os.getenv('SPOONACULAR_API_KEY'))
         self.api_base_url = api_auth_params.get('api_base_url', data['BASE_URL'])
 
     def search_recipies_by_ingredients(self, params) -> dict:
+        # Implementation of the Spoonacular API - recipes/findByIngredients.
         """
         Returns list of all the recipes for the given ingredients
         :param params: {"ingredients":<comma seperated list of ingredients> "apple, eggs"}
@@ -46,6 +52,7 @@ class SpoonacularApi:
         return response
 
     def get_recipe_details(self, params):
+        # Implementation of the Spoonacular API - recipes/informationBulk.
         try:
             self.log_handler.debug('Params: {}'.format(params))
             resource = data['APIS']['FIND_BY_INGREDIENT']
@@ -65,6 +72,7 @@ class SpoonacularApi:
 
     def get_ingredient_details(self, params):
         try:
+            # Implementation of the Spoonacular API - food/ingredients.
             self.log_handler.debug('params: {}'.format(params))
             resource = data['APIS']['GET_INGREDIENT']
             self.log_handler.debug('resource: {}'.format(resource))
@@ -82,6 +90,8 @@ class SpoonacularApi:
 
     def http_request(self, url, method, body):
         try:
+            # Function to create an HTTP request with an external
+            # end point with the help of api url, method and body.
             self.log_handler.debug('url: {}'.format(url))
             self.log_handler.debug('method: {}'.format(method))
             api_response = {}
@@ -92,7 +102,9 @@ class SpoonacularApi:
                 full_url = url + '?' + url_values
                 self.log_handler.debug('full_url: {}'.format(full_url))
                 api_response = requests.get(full_url)
+                # In case of any HTTP error, raise an exception and send it to the exceptions manager
                 api_response.raise_for_status()
+                # If no results returned, create an exception and send it to the exceptions manager
                 if not api_response.json():
                     error_params = \
                         {'error_type': 'API', 'code': 2001, 'message': 'No results found for the given input'}

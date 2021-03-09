@@ -1,8 +1,8 @@
 import json
 import os
 
-from core.error_module.ApiExceptions import ApiExceptions
-from core.error_module.Exceptions import Exceptions
+from core.error_module.api_exceptions import ApiExceptions
+from core.error_module.exceptions import Exceptions
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
