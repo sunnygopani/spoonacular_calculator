@@ -1,4 +1,4 @@
-from core.shopping_manager.libraries.SpoonacularApi import SpoonacularApi
+from core.shopping_manager.libraries.spoonacular_api import SpoonacularApi
 
 
 def test_search_recipies_by_ingredients_list():

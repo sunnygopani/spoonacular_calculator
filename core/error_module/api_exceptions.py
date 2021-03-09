@@ -1,6 +1,6 @@
 import json
 import os
-from core.error_module.Exceptions import Exceptions
+from core.error_module.exceptions import Exceptions
 
 HTTP_STATUS_CODES = {
     404: "NOT_FOUND",
