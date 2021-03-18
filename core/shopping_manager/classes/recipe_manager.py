@@ -2,19 +2,21 @@ from core.error_module.exceptions_manager import ExceptionsManager
 from core.helpers.spoonacular_logger import Logger
 from core.shopping_manager.libraries.spoonacular_api import SpoonacularApi
 from cerberus import Validator
+
+
 # Import the required modules
 # Using cerberus module for validating the inputs
 
 
 class RecipeManager:
-    def __init__(self):
+    def __init__(self) -> None:
         # Get the logging handler
         self.log_object = Logger()
         self.log_handler = self.log_object.get_logger()
         # Get the Spoonacular API object that communicates with Spoonacular server to get the list of recipes
         self.spoonacular_obj = SpoonacularApi()
 
-    def get_all_recipes(self, ingredients):
+    def get_all_recipes(self, ingredients: dict) -> dict:
         # Handler to obtain all the recipes by passing inputs in the required
         # format and returning response in an appropriate format.
         try:
@@ -35,7 +37,7 @@ class RecipeManager:
             return error_object
         return response
 
-    def get_recipe(self, recipe_id):
+    def get_recipe(self, recipe_id: int) -> dict:
         # Handler to obtain the recipe information by passing inputs in the required
         # format and returning response in an appropriate format.
         try:
