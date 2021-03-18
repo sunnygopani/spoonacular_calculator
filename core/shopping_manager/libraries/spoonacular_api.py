@@ -17,6 +17,9 @@ load_dotenv()
 
 
 class SpoonacularApi:
+    """
+    Class to interact with the Spoonacular API
+    """
     def __init__(self, api_auth_params={}):
         # Initialize logging handler, api base url and api key to be used in the subsequent request.
         self.log_object = Logger()
